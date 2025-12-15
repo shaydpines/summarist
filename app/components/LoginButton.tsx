@@ -5,7 +5,7 @@ export default function LoginButton() {
   const { openLogin } = useModal()
 
   return (
-    <button onClick={openLogin} className="btn home__cta--btn">
+    <button onClick={openLogin} className="btn btn__green home__cta--btn">
       Login
     </button>
   )
