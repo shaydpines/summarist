@@ -247,6 +247,12 @@ button:disabled {
   font-size: 16px;
 }
 
+.auth__error {
+  color: #e5484d;
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
 /* NAVBAR */
 
 .nav {

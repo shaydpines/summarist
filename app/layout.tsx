@@ -5,6 +5,7 @@ import { ModalProvider } from "./context/ModalContext";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { AuthProvider } from "./context/AuthContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,11 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <AuthProvider>
         <ModalProvider>
         <Navbar />
         {children}
         <Footer />
         </ModalProvider>
+        </AuthProvider>
       </body>
     </html>
   );
