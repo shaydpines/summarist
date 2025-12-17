@@ -6,7 +6,14 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { auth } from "../../firebase.js";
 import {
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  signInAnonymously,
+  linkWithCredential,
+  linkWithPopup,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 
@@ -20,6 +27,8 @@ type LoginDialogProps = {
 };
 
 type AuthMode = "login" | "signup";
+
+const googleProvider = new GoogleAuthProvider();
 
 export function LoginDialog({ open, onOpenChange }: LoginDialogProps) {
   const [mode, setMode] = useState<AuthMode>("login");
@@ -58,6 +67,12 @@ export function LoginDialog({ open, onOpenChange }: LoginDialogProps) {
   );
 }
 
+function loginAsGuest() {
+  signInAnonymously(auth).catch((error) => {
+    console.error("Guest login failed:", error);
+  });
+}
+
 function LoginView({ onSwitch }: { onSwitch: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,6 +84,44 @@ function LoginView({ onSwitch }: { onSwitch: () => void }) {
   }>({});
 
   const [loading, setLoading] = useState(false);
+
+  const [resetSent, setResetSent] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
+
+  async function handlePasswordReset() {
+    if (!email) {
+      setErrors({ email: "Enter your email to reset your password" });
+      return;
+    }
+
+    try {
+      setResetLoading(true);
+      setErrors({});
+      await sendPasswordResetEmail(auth, email);
+      setResetSent(true);
+    } catch (err: any) {
+      setErrors({
+        form:
+          err.code === "auth/user-not-found"
+            ? "No account found with this email"
+            : "Failed to send reset email. Try again.",
+      });
+    } finally {
+      setResetLoading(false);
+    }
+  }
+
+  async function handleGoogleLogin() {
+    try {
+      if (auth.currentUser?.isAnonymous) {
+        await linkWithPopup(auth.currentUser, googleProvider);
+      } else {
+        await signInWithPopup(auth, googleProvider);
+      }
+    } catch (err) {
+      setErrors({ form: "Google login failed. Please try again." });
+    }
+  }
 
   function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -91,11 +144,9 @@ function LoginView({ onSwitch }: { onSwitch: () => void }) {
     setLoading(true);
     setErrors({});
 
-    // import signInWithEmailAndPassword at the top
-    // from "firebase/auth"
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        // success – dialog can close via auth state listener
+        // success – dialog closes via auth state listener
       })
       .catch((err) => {
         const firebaseErrors: typeof errors = {};
@@ -132,9 +183,12 @@ function LoginView({ onSwitch }: { onSwitch: () => void }) {
       <Dialog.Title className="dialogue__title">
         Log in to Summarist
       </Dialog.Title>
+      <Dialog.Description className="sr-only">
+        Log in to access your Summarist account.
+      </Dialog.Description>
 
       <div className="auth__wrapper">
-        <button className="btn btn__guest">
+        <button className="btn btn__guest" onClick={loginAsGuest}>
           <FaUser className="btn__guest--icon" />
           <p className="btn__para">Login as a Guest</p>
         </button>
@@ -143,7 +197,7 @@ function LoginView({ onSwitch }: { onSwitch: () => void }) {
           <span className="auth__separator--text">or</span>
         </div>
 
-        <button className="btn btn__google">
+        <button className="btn btn__google" onClick={handleGoogleLogin}>
           <figure className="btn__google--figure">
             <Image
               src="/images/google.png"
@@ -208,7 +262,18 @@ function LoginView({ onSwitch }: { onSwitch: () => void }) {
         </form>
       </div>
 
-      <div className="auth__forgot--password">Forgot your password?</div>
+      <button
+        type="button"
+        className="btn auth__forgot--password"
+        onClick={handlePasswordReset}
+        disabled={resetLoading || resetSent}
+      >
+        {resetSent
+          ? "Reset email sent ✓"
+          : resetLoading
+          ? "Sending reset email..."
+          : "Forgot your password?"}
+      </button>
 
       <button className="auth__switch--btn" onClick={onSwitch}>
         Don't have an account?
@@ -231,6 +296,23 @@ function SignupView({ onSwitch }: { onSwitch: () => void }) {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  async function handleGoogleSignup() {
+    try {
+      if (auth.currentUser?.isAnonymous) {
+        await linkWithPopup(auth.currentUser, googleProvider);
+      } else {
+        await signInWithPopup(auth, googleProvider);
+      }
+
+      setSuccess(true);
+      setTimeout(() => onSwitch(), 1200);
+    } catch (err: any) {
+      setErrors({
+        form: "Google sign-up failed. Please try again.",
+      });
+    }
+  }
 
   function signUp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -257,16 +339,18 @@ function SignupView({ onSwitch }: { onSwitch: () => void }) {
     setLoading(true);
     setErrors({});
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        setSuccess(true);
+    (async () => {
+      try {
+        if (auth.currentUser?.isAnonymous) {
+          const credential = EmailAuthProvider.credential(email, password);
+          await linkWithCredential(auth.currentUser, credential);
+        } else {
+          await createUserWithEmailAndPassword(auth, email, password);
+        }
 
-        // brief success state, then switch to login
-        setTimeout(() => {
-          onSwitch();
-        }, 1200);
-      })
-      .catch((err) => {
+        setSuccess(true);
+        setTimeout(() => onSwitch(), 1200);
+      } catch (err: any) {
         const firebaseErrors: typeof errors = {};
 
         switch (err.code) {
@@ -284,10 +368,10 @@ function SignupView({ onSwitch }: { onSwitch: () => void }) {
         }
 
         setErrors(firebaseErrors);
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
+      }
+    })();
   }
 
   const clearFieldError = (field: "email" | "password" | "confirmPassword") => {
@@ -300,8 +384,12 @@ function SignupView({ onSwitch }: { onSwitch: () => void }) {
         Sign up to Summarist
       </Dialog.Title>
 
+      <Dialog.Description className="sr-only">
+        Sign up to create your Summarist account.
+      </Dialog.Description>
+
       <div className="auth__wrapper">
-        <button className="btn btn__google">
+        <button className="btn btn__google" onClick={handleGoogleSignup}>
           <figure className="btn__google--figure">
             <Image
               src="/images/google.png"

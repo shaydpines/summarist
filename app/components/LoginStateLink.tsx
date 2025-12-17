@@ -4,12 +4,14 @@ import { useAuth } from "../context/AuthContext";
 import { auth } from "../../firebase.js";
 import { signOut } from "firebase/auth";
 
-export default function LoginState() {
+export default function LoginStateLink() {
   const { openLogin } = useModal();
   function logout() {
     signOut(auth);
   }
   const { user, loading } = useAuth();
+
+  const isGuest = user?.isAnonymous;
 
   return (
     <>

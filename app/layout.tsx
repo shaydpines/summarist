@@ -21,11 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-        <ModalProvider>
-        <Navbar />
-        {children}
-        <Footer />
-        </ModalProvider>
+          <ModalProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </ModalProvider>
         </AuthProvider>
       </body>
     </html>
