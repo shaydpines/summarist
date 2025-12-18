@@ -1,6 +1,6 @@
 import React from 'react'
 import { BsStarFill, BsStarHalf } from 'react-icons/bs'
-import LoginButton from './LoginButton'
+import LoginButton from '../Login/LoginButton'
 
 const Reviews = () => {
   return (

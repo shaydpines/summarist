@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 
-import { auth } from "../../firebase.js";
+import { auth } from "@/firebase";
 import {
   createUserWithEmailAndPassword,
   EmailAuthProvider,
@@ -15,7 +15,7 @@ import {
   linkWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/app/context/AuthContext";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";

@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, ReactNode } from 'react'
-import { LoginDialog } from '../components/LoginDialog'
+import { LoginDialog } from '../components/Login/LoginDialog' 
 
 type ModalContextType = {
   openLogin: () => void

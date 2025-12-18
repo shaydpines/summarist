@@ -1,5 +1,5 @@
 'use client'
-import { useModal } from "../context/ModalContext"
+import { useModal } from "@/app/context/ModalContext"
 
 export default function LoginButton() {
   const { openLogin } = useModal()

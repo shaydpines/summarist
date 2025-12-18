@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import LoginButton from "./LoginButton";
+import LoginButton from "../Login/LoginButton";
 
 const Landing = () => {
   return (

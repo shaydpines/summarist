@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LoginState from "./LoginStateLink";
+import LoginStateLink from "./Login/LoginStateLink";
 
 const Navbar = () => {
 
@@ -16,7 +16,7 @@ const Navbar = () => {
           />
         </figure>
         <ul className="nav__list--wrapper">
-          <li className="nav__list nav__list--login"><LoginState /></li>
+          <li className="nav__list nav__list--login"><LoginStateLink /></li>
           <li className="nav__list nav__list--mobile">About</li>
           <li className="nav__list nav__list--mobile">Contact</li>
           <li className="nav__list nav__list--mobile">Help</li>

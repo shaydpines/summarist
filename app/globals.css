@@ -527,6 +527,8 @@ button:disabled {
   font-weight: 300;
 }
 
+/*Footer*/
+
 #footer {
   background-color: rgb(241 246 244);
 }
@@ -610,6 +612,8 @@ button:disabled {
   color: #032b41;
   font-weight: 500;
 }
+
+/*Selected Books*/
 
 @media (max-width: 768px) {
   .landing__content {

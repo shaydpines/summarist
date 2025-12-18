@@ -1,7 +1,7 @@
 "use client";
-import { useModal } from "../context/ModalContext";
-import { useAuth } from "../context/AuthContext";
-import { auth } from "../../firebase.js";
+import { useModal } from "@/app/context/ModalContext"; 
+import { useAuth } from "@/app/context/AuthContext"; 
+import { auth } from "@/firebase"; 
 import { signOut } from "firebase/auth";
 
 export default function LoginStateLink() {
