@@ -1,19 +1,6 @@
 import React from "react";
 import Image from "next/image";
-
-type BookType = {
-  title: string;
-  author: string;
-  subTitle: string;
-  averageRating: number;
-  totalRating: number;
-  type: string;
-  keyIdeas: number;
-  tags: string[];
-  bookDescription: string;
-  authorDescription: string;
-  imageLink: string;
-};
+import type { BookType } from "../types/book";
 
 type BookProps = {
   book?: BookType;

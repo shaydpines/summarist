@@ -10,6 +10,7 @@ const Navbar = () => {
           <Image
             src="/images/logo.png"
             alt="logo"
+            loading="eager"
             width={1200}
             height={1200}
             className="nav__img"

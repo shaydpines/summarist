@@ -1,18 +1,7 @@
 import Book from "@/app/components/Book";
+import type { BookType } from "@/app/types/book"
 
-type BookType = {
-  title: string;
-  author: string;
-  subTitle: string;
-  averageRating: number;
-  totalRating: number;
-  type: string;
-  keyIdeas: number;
-  tags: string[];
-  bookDescription: string;
-  authorDescription: string;
-  imageLink: string;
-};
+
 
 async function getSelectedBook(): Promise<BookType[]> {
   const book = await fetch(
@@ -30,15 +19,15 @@ async function getSelectedBook(): Promise<BookType[]> {
 }
 
 const Page = async () => {
-  const books = await getSelectedBook();
+  const book = await getSelectedBook();
 
-  if (books.length === 0) {
+  if (book.length === 0) {
     return <p>No books found.</p>;
   }
 
   return (
     <div className="container">
-      {books.map((book) => (
+      {book.map((book) => (
         <Book key={book.imageLink} book={book} />
       ))}
     </div>

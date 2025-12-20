@@ -3,8 +3,6 @@
 
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
@@ -14,8 +12,19 @@ html {
 }
 
 body {
+  margin: 0;
+  padding: 0;
   max-width: 100%;
   overflow-x: hidden;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE / Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome / Safari */
 }
 
 a {
@@ -612,8 +621,6 @@ button:disabled {
   color: #032b41;
   font-weight: 500;
 }
-
-/*Selected Books*/
 
 @media (max-width: 768px) {
   .landing__content {
