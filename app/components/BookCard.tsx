@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AudioPlayer from "./AudioPlayer";
 import type { BookType } from "../types/book";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 import { RxStopwatch } from "react-icons/rx";
 
 type BookCardProps = {
@@ -16,7 +16,7 @@ const BookCard = ({ book }: BookCardProps) => {
     <Link
       href={`/book/${book.id}`}
       className="
-        for-you__recommended--books-link
+        for-you__book-card--link
         relative
         snap-start
         shrink-0
@@ -28,7 +28,7 @@ const BookCard = ({ book }: BookCardProps) => {
         hover:bg-[#f1f6f4]
       "
     >
-      {/* <AudioPlayer audioLink={book.audioLink} /> */}
+        {book.subscriptionRequired && <div className="book-card__premium absolute right-1 top-1 px-2  text-white text-[12px] bg-[#032b41] rounded-2xl ">Premium</div>}
       <figure className="book__image--wrapper mb-3">
         <Image
           className="book__image mx-auto"
@@ -38,21 +38,21 @@ const BookCard = ({ book }: BookCardProps) => {
           height={172}
         />
       </figure>
-      <div className="recommended__book--title text-[16px] font-bold text-[#032b41] mb-2">
+      <div className="book-card__title text-[16px] font-bold text-[#032b41] mb-2">
         {book.title}
       </div>
-      <div className="recommended__book--author text-[14px] text-[#6b757b] font-light mb-2">
+      <div className="book-card__author text-[14px] text-[#6b757b] font-light mb-2">
         {book.author}
       </div>
-      <div className="recommended__book--sub-title text-[14px] text-[#394547] mb-2">
+      <div className="book-card__sub-title text-[14px] text-[#394547] mb-2">
         {book.subTitle}
       </div>
-      <div className="recommended__book--details-wrapper flex gap-3">
+      <div className="book-card__details-wrapper flex gap-3">
         <div className="flex items-center gap-1 text-[14px] font-light text-[#6b757b]">
-          <RxStopwatch className="w-4 h-4" />
+          <RxStopwatch className="w-4 h-4" /> <AudioPlayer audioLink={book.audioLink} buttonClassName="hidden" />
         </div>
         <div className="flex items-center gap-1 text-[14px] font-light text-[#6b757b]">
-          <FaStar className="w-4 h-4" />
+          <FaRegStar className="w-4 h-4" />
           {book.averageRating.toFixed(1)}
         </div>
       </div>

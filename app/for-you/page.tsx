@@ -1,6 +1,7 @@
 import React from "react";
 import SelectedBook from "../components/For-you/SelectedBook";
 import RecommendedBooks from "../components/For-you/RecommendedBooks";
+import SuggestedBooks from "../components/For-you/SuggestedBooks";
 
 const page = () => {
   return (
@@ -8,6 +9,7 @@ const page = () => {
       <div className="container__no-cap">
         <SelectedBook />
         <RecommendedBooks />
+        <SuggestedBooks />
       </div>
     </div>
   );

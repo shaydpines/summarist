@@ -60,7 +60,7 @@ const SelectedBook = async () => {
                 {book.author}
               </div>
               <div className="selected__book--duration-wrapper flex items-center gap-2">
-                <AudioPlayer audioLink={book.audioLink} />
+                <AudioPlayer audioLink={book.audioLink} buttonClassName="text-4xl" />
                 {/* <div className="selected__book--icon flex items-center w-10 h-10">
                     <FaCirclePlay />
                   </div>

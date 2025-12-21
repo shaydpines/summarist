@@ -22,9 +22,7 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <ModalProvider>
-            <Navbar />
             {children}
-            <Footer />
           </ModalProvider>
         </AuthProvider>
       </body>

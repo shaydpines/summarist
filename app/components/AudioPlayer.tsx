@@ -4,9 +4,11 @@ import { FaCirclePlay, FaCirclePause } from "react-icons/fa6";
 
 type AudioPlayerProps = {
   audioLink: string;
+  buttonClassName: string;
+
 };
 
-export default function AudioPlayer({ audioLink }: AudioPlayerProps) {
+export default function AudioPlayer({ audioLink, buttonClassName }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState<number | null>(null);
@@ -24,7 +26,6 @@ export default function AudioPlayer({ audioLink }: AudioPlayerProps) {
     audio.addEventListener("loadedmetadata", updateDuration);
     audio.addEventListener("durationchange", updateDuration);
 
-    // 👇 force metadata fetch on mount
     audio.load();
 
     return () => {
@@ -34,7 +35,7 @@ export default function AudioPlayer({ audioLink }: AudioPlayerProps) {
   }, [audioLink]);
 
   const togglePlay = (e: React.MouseEvent) => {
-    e.preventDefault(); // important inside Link
+    e.preventDefault();
     e.stopPropagation();
 
     const audio = audioRef.current;
@@ -57,11 +58,11 @@ export default function AudioPlayer({ audioLink }: AudioPlayerProps) {
         preload="metadata"
       />
 
-      <button onClick={togglePlay}>
+      <button className={buttonClassName} onClick={togglePlay}>
         {isPlaying ? (
-          <FaCirclePause className="text-4xl" />
+          <FaCirclePause />
         ) : (
-          <FaCirclePlay className="text-4xl" />
+          <FaCirclePlay />
         )}
       </button>
 
