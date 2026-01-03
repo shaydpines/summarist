@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import type { BookType } from "../types/book";
-import { FaHeadphones, FaRegLightbulb, FaRegStar, FaStar } from "react-icons/fa";
+import { FaHeadphones, FaRegBookmark, FaRegLightbulb, FaRegStar, FaStar } from "react-icons/fa";
 import { RxStopwatch } from "react-icons/rx";
 import AudioPlayer from "./AudioPlayer";
 
@@ -66,20 +66,20 @@ const Book: React.FC<BookProps> = ({ book }) => {
           </div>
         </div>
 
-        <div className="book__read--btn-wrapper">
-          <button type="button" className="book__read--btn">
+        <div className="book__read--btn-wrapper flex gap-4 m-6">
+          <button type="button" className="book__read--btn flex items-center justify-center w-36 h-12 bg-[#032b41] text-white text-[16px] rounded-sm cursor-pointer gap-2 transition-opacity duration-200 hover:opacity-90">
             <span className="book__read--text">Read</span>
           </button>
 
-          <button type="button" className="book__read--btn">
+          <button type="button" className="book__read--btn flex items-center justify-center w-36 h-12 bg-[#032b41] text-white text-[16px] rounded-sm cursor-pointer gap-2 transition-opacity duration-200 hover:opacity-90">
             <span className="book__read--text">Listen</span>
           </button>
         </div>
 
-        <div className="book__bookmark">
-          <div className="book__bookmark--icon">🔖</div>
+        <button type="button" className="book__bookmark flex items-center gap-2 text-[#0365f2] font-medium mb-10 text-[16px] md:text-[18px] transition-colors duration-200 hover:text-[#044298]">
+          <div className="book__bookmark--icon"><FaRegBookmark /></div>
           <div className="book__bookmark--text">Add title to My Library</div>
-        </div>
+        </button>
 
         <h2 className="book__secondary--title">What's it about?</h2>
 
