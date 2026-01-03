@@ -36,6 +36,7 @@ const BookCard = ({ book }: BookCardProps) => {
           alt={book.title}
           width={172}
           height={172}
+          unoptimized
         />
       </figure>
       <div className="book-card__title text-[16px] font-bold text-[#032b41] mb-2">

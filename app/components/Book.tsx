@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import type { BookType } from "../types/book";
-import { FaHeadphones, FaRegStar, FaStar } from "react-icons/fa";
+import { FaHeadphones, FaRegLightbulb, FaRegStar, FaStar } from "react-icons/fa";
 import { RxStopwatch } from "react-icons/rx";
 import AudioPlayer from "./AudioPlayer";
 
@@ -43,7 +43,7 @@ const Book: React.FC<BookProps> = ({ book }) => {
           {book.subTitle}
         </div>
         <div className="book__wrapper border-t border-b border-[#e1e7ea]">
-          <div className="book__description--wrapper flex-wrap max-w-[400px] p-3">
+          <div className="book__description--wrapper flex flex-wrap max-w-[400px] p-3">
             <div className="book__description flex items-center w-[50%] text-[#032b41] font-medium text-[14px] mb-3">
               <div className="book__icon text-[24px] mr-1"><FaRegStar /></div>
               <div className="book__overall--rating mx-1">{book.averageRating}</div>
@@ -54,15 +54,14 @@ const Book: React.FC<BookProps> = ({ book }) => {
               <div className="book__icon text-[24px]"><RxStopwatch /></div>
               <div className="book__duration mx-1"><AudioPlayer audioLink={book.audioLink} buttonClassName="hidden" /></div>
             </div>
-
             <div className="book__description flex items-center w-[50%] text-[#032b41] font-medium text-[14px] mb-3">
               <div className="book__icon text-[24px]"><FaHeadphones /></div>
               <div className="book__type mx-1">{book.type}</div>
             </div>
 
             <div className="book__description flex items-center w-[50%] text-[#032b41] font-medium text-[14px]">
-              <div className="book__icon">💡</div>
-              <div className="book__key--ideas">{book.keyIdeas}</div>
+              <div className="book__icon text-[24px]"><FaRegLightbulb /></div>
+              <div className="book__key--ideas mx-1">{book.keyIdeas} Key ideas</div>
             </div>
           </div>
         </div>
