@@ -1,7 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import type { BookType } from "../types/book";
-import { FaHeadphones, FaRegBookmark, FaRegLightbulb, FaRegStar, FaStar } from "react-icons/fa";
+import {
+  FaHeadphones,
+  FaRegBookmark,
+  FaRegLightbulb,
+  FaRegStar,
+  FaStar,
+} from "react-icons/fa";
 import { RxStopwatch } from "react-icons/rx";
 import AudioPlayer from "./AudioPlayer";
 
@@ -45,61 +51,98 @@ const Book: React.FC<BookProps> = ({ book }) => {
         <div className="book__wrapper border-t border-b border-[#e1e7ea]">
           <div className="book__description--wrapper flex flex-wrap max-w-[400px] p-3">
             <div className="book__description flex items-center w-[50%] text-[#032b41] font-medium text-[14px] mb-3">
-              <div className="book__icon text-[24px] mr-1"><FaRegStar /></div>
-              <div className="book__overall--rating mx-1">{book.averageRating}</div>
-              <div className="book__total--rating">{`(` + book.totalRating + `)`}</div>
+              <div className="book__icon text-[24px] mr-1">
+                <FaRegStar />
+              </div>
+              <div className="book__overall--rating mx-1">
+                {book.averageRating}
+              </div>
+              <div className="book__total--rating">
+                {`(` + book.totalRating + `)`}
+              </div>
             </div>
 
             <div className="book__description flex items-center w-[50%] text-[#032b41] font-medium text-[14px] mb-3">
-              <div className="book__icon text-[24px]"><RxStopwatch /></div>
-              <div className="book__duration mx-1"><AudioPlayer audioLink={book.audioLink} buttonClassName="hidden" /></div>
+              <div className="book__icon text-[24px]">
+                <RxStopwatch />
+              </div>
+              <div className="book__duration mx-1">
+                <AudioPlayer
+                  audioLink={book.audioLink}
+                  buttonClassName="hidden"
+                />
+              </div>
             </div>
             <div className="book__description flex items-center w-[50%] text-[#032b41] font-medium text-[14px] mb-3">
-              <div className="book__icon text-[24px]"><FaHeadphones /></div>
+              <div className="book__icon text-[24px]">
+                <FaHeadphones />
+              </div>
               <div className="book__type mx-1">{book.type}</div>
             </div>
 
             <div className="book__description flex items-center w-[50%] text-[#032b41] font-medium text-[14px]">
-              <div className="book__icon text-[24px]"><FaRegLightbulb /></div>
-              <div className="book__key--ideas mx-1">{book.keyIdeas} Key ideas</div>
+              <div className="book__icon text-[24px]">
+                <FaRegLightbulb />
+              </div>
+              <div className="book__key--ideas mx-1">
+                {book.keyIdeas} Key ideas
+              </div>
             </div>
           </div>
         </div>
 
         <div className="book__read--btn-wrapper flex gap-4 m-6">
-          <button type="button" className="book__read--btn flex items-center justify-center w-36 h-12 bg-[#032b41] text-white text-[16px] rounded-sm cursor-pointer gap-2 transition-opacity duration-200 hover:opacity-90">
+          <button
+            type="button"
+            className="book__read--btn flex items-center justify-center w-36 h-12 bg-[#032b41] text-white text-[16px] rounded-sm cursor-pointer gap-2 transition-opacity duration-200 hover:opacity-90"
+          >
             <span className="book__read--text">Read</span>
           </button>
 
-          <button type="button" className="book__read--btn flex items-center justify-center w-36 h-12 bg-[#032b41] text-white text-[16px] rounded-sm cursor-pointer gap-2 transition-opacity duration-200 hover:opacity-90">
+          <button
+            type="button"
+            className="book__read--btn flex items-center justify-center w-36 h-12 bg-[#032b41] text-white text-[16px] rounded-sm cursor-pointer gap-2 transition-opacity duration-200 hover:opacity-90"
+          >
             <span className="book__read--text">Listen</span>
           </button>
         </div>
 
-        <button type="button" className="book__bookmark flex items-center gap-2 text-[#0365f2] font-medium mb-10 text-[16px] md:text-[18px] transition-colors duration-200 hover:text-[#044298]">
-          <div className="book__bookmark--icon"><FaRegBookmark /></div>
+        <button
+          type="button"
+          className="book__bookmark flex items-center gap-2 text-[#0365f2] font-medium mb-10 text-[16px] md:text-[18px] transition-colors duration-200 hover:text-[#044298]"
+        >
+          <div className="book__bookmark--icon">
+            <FaRegBookmark />
+          </div>
           <div className="book__bookmark--text">Add title to My Library</div>
         </button>
 
-        <h2 className="book__secondary--title">What's it about?</h2>
+        <h2 className="book__secondary--title text-[18px] text-[#032b41] mb-4 font-semibold">
+          What's it about?
+        </h2>
 
-        <div className="book__tags--wrapper">
+        <div className="book__tags--wrapper flex flex-wrap gap-4 mb-4">
           {book.tags.length > 0 ? (
             book.tags.map((tag, index) => (
-              <div key={index} className="book__tag">
+              <div
+                key={index}
+                className="book__tag text-[14px] bg-[#f1f6f4] px-4 h-12 flex items-center cursor-not-allowed text-[#032b41] font-medium rounded-sm"
+              >
                 {tag}
               </div>
             ))
           ) : (
-            <div className="book__tag">No tags available</div>
+            <div className="book__tag text-[14px] bg-[#f1f6f4] px-4 h-12 flex items-center cursor-not-allowed text-[#032b41] font-medium rounded-sm">
+              No tags available
+            </div>
           )}
         </div>
 
-        <div className="book__book--description">{book.bookDescription}</div>
+        <div className="book__book--description text-[14px] text-[#032b41] mb-4 leading-normal">{book.bookDescription}</div>
 
-        <h2 className="book__secondary--title">About the author</h2>
+        <h2 className="book__secondary--title text-[18px] text-[#032b41] mb-4 font-semibold">About the author</h2>
 
-        <div className="book__author--description">
+        <div className="book__author--description  text-[14px] text-[#032b41] mb-4 leading-normal">
           {book.authorDescription}
         </div>
       </div>
