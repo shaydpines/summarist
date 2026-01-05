@@ -1,15 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import type { BookType } from "../types/book";
-import {
-  FaHeadphones,
-  FaRegBookmark,
-  FaRegLightbulb,
-  FaRegStar,
-  FaStar,
-} from "react-icons/fa";
+import { FaHeadphones, FaRegLightbulb, FaRegStar } from "react-icons/fa";
 import { RxStopwatch } from "react-icons/rx";
 import AudioPlayer from "./AudioPlayer";
+import ReadListen from "./Book/ReadListen";
+import Bookmark from "./Book/Bookmark";
 
 type BookProps = {
   book?: BookType;
@@ -91,31 +87,9 @@ const Book: React.FC<BookProps> = ({ book }) => {
           </div>
         </div>
 
-        <div className="book__read--btn-wrapper flex gap-4 m-6">
-          <button
-            type="button"
-            className="book__read--btn flex items-center justify-center w-36 h-12 bg-[#032b41] text-white text-[16px] rounded-sm cursor-pointer gap-2 transition-opacity duration-200 hover:opacity-90"
-          >
-            <span className="book__read--text">Read</span>
-          </button>
+        <ReadListen id={book.id} />
 
-          <button
-            type="button"
-            className="book__read--btn flex items-center justify-center w-36 h-12 bg-[#032b41] text-white text-[16px] rounded-sm cursor-pointer gap-2 transition-opacity duration-200 hover:opacity-90"
-          >
-            <span className="book__read--text">Listen</span>
-          </button>
-        </div>
-
-        <button
-          type="button"
-          className="book__bookmark flex items-center gap-2 text-[#0365f2] font-medium mb-10 text-[16px] md:text-[18px] transition-colors duration-200 hover:text-[#044298]"
-        >
-          <div className="book__bookmark--icon">
-            <FaRegBookmark />
-          </div>
-          <div className="book__bookmark--text">Add title to My Library</div>
-        </button>
+        <Bookmark id={book.id} />
 
         <h2 className="book__secondary--title text-[18px] text-[#032b41] mb-4 font-semibold">
           What's it about?
@@ -138,9 +112,13 @@ const Book: React.FC<BookProps> = ({ book }) => {
           )}
         </div>
 
-        <div className="book__book--description text-[14px] text-[#032b41] mb-4 leading-normal">{book.bookDescription}</div>
+        <div className="book__book--description text-[14px] text-[#032b41] mb-4 leading-normal">
+          {book.bookDescription}
+        </div>
 
-        <h2 className="book__secondary--title text-[18px] text-[#032b41] mb-4 font-semibold">About the author</h2>
+        <h2 className="book__secondary--title text-[18px] text-[#032b41] mb-4 font-semibold">
+          About the author
+        </h2>
 
         <div className="book__author--description  text-[14px] text-[#032b41] mb-4 leading-normal">
           {book.authorDescription}
