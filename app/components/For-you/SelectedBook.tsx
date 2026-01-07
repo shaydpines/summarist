@@ -1,8 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FaCirclePlay } from "react-icons/fa6";
 import type { BookType } from "@/app/types/book";
-import AudioPlayer from "../AudioPlayer";
+import AudioButton from "../AudioButton";
 
 async function getSelectedBook(): Promise<BookType[]> {
   const res = await fetch(
@@ -60,13 +59,7 @@ const SelectedBook = async () => {
                 {book.author}
               </div>
               <div className="selected__book--duration-wrapper flex items-center gap-2">
-                <AudioPlayer audioLink={book.audioLink} buttonClassName="text-4xl" />
-                {/* <div className="selected__book--icon flex items-center w-10 h-10">
-                    <FaCirclePlay />
-                  </div>
-                  <div className="selected__book--duration text-[14px] font-medium text-[#032b41]">
-                    3 mins 23 secs
-                  </div> */}
+                <AudioButton audioLink={book.audioLink} buttonClassName="text-4xl" />
               </div>
             </div>
           </div>

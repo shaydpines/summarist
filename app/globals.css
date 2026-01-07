@@ -48,6 +48,57 @@ ul {
   width: 100%;
 }
 
+/* Input */
+
+input[type="range"] {
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+}
+
+/* Track */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    #2bd97c var(--progress),
+    #6d787d var(--progress)
+  );
+}
+
+input[type="range"]::-moz-range-track {
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    #2bd97c var(--progress),
+    #6d787d var(--progress)
+  );
+}
+
+/* Thumb */
+input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 9999px;
+  cursor: pointer;
+  margin-top: -4.5px;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
 /* Buttons */
 
 button {

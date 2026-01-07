@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { BookType } from "../types/book";
 import { FaHeadphones, FaRegLightbulb, FaRegStar } from "react-icons/fa";
 import { RxStopwatch } from "react-icons/rx";
-import AudioPlayer from "./AudioPlayer";
+import AudioPlayer from "./AudioButton";
 import ReadListen from "./Book/ReadListen";
 import Bookmark from "./Book/Bookmark";
 

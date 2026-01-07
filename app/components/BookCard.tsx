@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import AudioPlayer from "./AudioPlayer";
+import AudioBook from "./AudioButton";
 import type { BookType } from "../types/book";
 import { FaRegStar } from "react-icons/fa";
 import { RxStopwatch } from "react-icons/rx";
@@ -50,7 +50,7 @@ const BookCard = ({ book }: BookCardProps) => {
       </div>
       <div className="book-card__details-wrapper flex gap-3">
         <div className="flex items-center gap-1 text-[14px] font-light text-[#6b757b]">
-          <RxStopwatch className="w-4 h-4" /> <AudioPlayer audioLink={book.audioLink} buttonClassName="hidden" />
+          <RxStopwatch className="w-4 h-4" /> <AudioBook audioLink={book.audioLink} buttonClassName="hidden" />
         </div>
         <div className="flex items-center gap-1 text-[14px] font-light text-[#6b757b]">
           <FaRegStar className="w-4 h-4" />
