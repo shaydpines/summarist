@@ -68,7 +68,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ book }) => {
   };
 
   return (
-    <div className="audio__wrapper h-180px md:h-80px w-full py-4 md:py-0 px-6 md:px-10 flex flex-col md:flex-row mt-auto items-center justify-between bg-[#042330] fixed bottom-0 left-0 z-50">
+    <div className="audio__wrapper min-h-[180px] md:min-h-[100px] w-full py-4 md:py-0 px-6 md:px-10 flex flex-col md:flex-row mt-auto items-center justify-between bg-[#042330] fixed bottom-0 left-0 z-50">
       <audio
         ref={audioRef}
         src={book.audioLink}

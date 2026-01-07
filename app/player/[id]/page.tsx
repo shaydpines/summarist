@@ -26,9 +26,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <div className="row">
-      <div className="container__no-cap">
         <Player book={book} />
-      </div>
     </div>
   );
 }

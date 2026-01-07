@@ -16,7 +16,7 @@ const Player: React.FC<PlayerProps> = ({ book }) => {
   }
 
   return (
-    <div className="summary h-[calc(100vh-260px)] md:h-[calc(100vh-160px)] relative w-full overflow-y-auto">
+    <div className="summary h-[calc(100vh-180px)] md:h-[calc(100vh-100px)] relative w-full overflow-y-auto">
       <div className="audio__book--summary text-[16px] whitespace-pre-line p-6 max-w-[800px] my-0 mx-auto">
         <div className="audio__book--summary-title text-[20px] md:text-[24px] text-[#032b41] border-b-[#e1e7ea] mb-8 pb-4 leading-normal">
           <b>{book.title}</b>
