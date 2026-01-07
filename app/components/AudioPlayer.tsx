@@ -137,8 +137,10 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ book }) => {
         </div>
         <input
           type="range"
+          min={0}
+          max={duration || 0}
+          step={0.01}
           value={currentTime}
-          max={duration}
           onChange={(e) => {
             const time = Number(e.target.value);
             setCurrentTime(time);
