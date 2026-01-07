@@ -64,7 +64,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   border-radius: 9999px;
   background: linear-gradient(
     to right,
-    #2bd97c var(--progress),
+    #fff var(--progress),
     #6d787d var(--progress)
   );
 }
@@ -74,7 +74,7 @@ input[type="range"]::-moz-range-track {
   border-radius: 9999px;
   background: linear-gradient(
     to right,
-    #2bd97c var(--progress),
+    #fff var(--progress),
     #6d787d var(--progress)
   );
 }

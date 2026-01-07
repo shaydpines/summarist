@@ -27,6 +27,22 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ book }) => {
 
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleDurationChange = () => {
+      if (Number.isFinite(audio.duration)) {
+        setDuration(audio.duration);
+      }
+    };
+
+    audio.addEventListener("durationchange", handleDurationChange);
+    return () => {
+      audio.removeEventListener("durationchange", handleDurationChange);
+    };
+  }, []);
+
   const togglePlay = () => {
     if (!audioRef.current) return;
 
@@ -56,14 +72,18 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ book }) => {
       <audio
         ref={audioRef}
         src={book.audioLink}
+        preload="metadata"
         onLoadedMetadata={() => {
-          if (audioRef.current) {
-            setDuration(audioRef.current.duration);
+          const d = audioRef.current?.duration;
+          if (d && Number.isFinite(d)) {
+            setDuration(d);
           }
         }}
         onTimeUpdate={() => {
-          if (audioRef.current) {
-            setCurrentTime(audioRef.current.currentTime);
+          const t = audioRef.current?.currentTime;
+
+          if (t !== undefined) {
+            setCurrentTime(t);
           }
         }}
       />
@@ -121,6 +141,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ book }) => {
           max={duration}
           onChange={(e) => {
             const time = Number(e.target.value);
+            setCurrentTime(time);
             audioRef.current!.currentTime = time;
           }}
           style={{ "--progress": `${progress}%` } as React.CSSProperties}
