@@ -1,17 +1,11 @@
 "use client";
-import { useModal } from "@/app/context/ModalContext"; 
-import { useAuth } from "@/app/context/AuthContext"; 
-import { auth } from "@/firebase"; 
-import { signOut } from "firebase/auth";
+
+import { useModal } from "@/app/context/ModalContext";
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function LoginStateLink() {
   const { openLogin } = useModal();
-  function logout() {
-    signOut(auth);
-  }
-  const { user, loading } = useAuth();
-
-  const isGuest = user?.isAnonymous;
+  const { user, loading, logout } = useAuth();
 
   return (
     <>
