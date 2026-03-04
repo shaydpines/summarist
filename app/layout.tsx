@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { ModalProvider } from "./context/ModalContext";
-
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import { AuthProvider } from "./context/AuthContext";
 
 export const metadata: Metadata = {
