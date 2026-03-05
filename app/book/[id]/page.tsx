@@ -8,7 +8,7 @@ type PageProps = {
 async function getSelectedBook(id: string): Promise<BookType | null> {
   const res = await fetch(
     `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`,
-    { cache: "no-store" }
+    { cache: "no-store" },
   );
 
   if (!res.ok) return null;
@@ -27,8 +27,8 @@ export default async function Page({ params }: PageProps) {
   return (
     <div className="row">
       <div className="container__no-cap">
-        <Book book={book} />
-      </div>
+          <Book book={book} />
+        </div>
     </div>
   );
 }
