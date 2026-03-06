@@ -11,10 +11,10 @@ export default function Skeleton({
 }: SkeletonProps) {
   return (
     <div
-      className={`relative overflow-hidden bg-gray-200 rounded ${className}`}
+      className={`relative overflow-hidden rounded bg-gray-200 animate-pulse ${className}`}
       style={{ width, height }}
     >
-      <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.6s_infinite] bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent opacity-60" />
     </div>
   );
 }
