@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { BookType } from "../types/book";
-import BookCard from "./BookCard";
+import SearchCard from "./SearchCard";
 
 type BookProps = {
   book?: BookType;
@@ -12,6 +12,10 @@ type BookProps = {
 const SearchBar = () => {
   const [search, setSearch] = useState("");
   const [books, setBooks] = useState<BookType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showResults, setShowResults] = useState<boolean>(false);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const searchBooks = async (query: string) => {
     if (!query) {
@@ -20,6 +24,8 @@ const SearchBar = () => {
     }
 
     try {
+      setLoading(true);
+
       const res = await fetch(
         `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${query}`
       );
@@ -27,19 +33,50 @@ const SearchBar = () => {
       setBooks(data);
     } catch (error) {
       console.error("Error fetching books:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     const delay = setTimeout(() => {
       searchBooks(search);
-    }, 400); // debounce
+    }, 400);
 
     return () => clearTimeout(delay);
   }, [search]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setShowResults(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setShowResults(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
   return (
-    <div className="search__background bg-white border-b border-[#e1e7ea] h-20 w-full z-10 sticky top-0">
+    <div ref={wrapperRef} className="search__background bg-white border-b border-[#e1e7ea] h-20 w-full z-10 sticky top-0">
       <div className="search__wrapper relative flex items-center px-16 h-full justify-end">
         <div className="search__content flex items-center gap-6 max-w-[340px] w-full">
           <div className="search flex items-center w-full">
@@ -50,6 +87,7 @@ const SearchBar = () => {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                onFocus={() => setShowResults(true)}
               />
 
               <div className="search__icon flex items-center absolute h-full right-2 px-2 gap-2 border-l-2 border-[#e1e7ea]">
@@ -65,10 +103,20 @@ const SearchBar = () => {
       </div>
 
       {/* Search Results */}
-      {books.length > 0 && (
-        <div className="absolute right-16 top-20 bg-white border w-[340px] rounded-lg shadow-lg max-h-[400px] overflow-y-auto">
-          {books.map((book) => (
-          <BookCard key={book.id} book={book} />
+      {showResults && search.length > 0 && (
+        <div className="absolute  top-20 right-0 md:right-16 flex flex-col w-full md:max-w-[440px] max-h-[640px] p-4 shadow-[2px_2px_6px_0_rgba(0,0,0,0.14)] bg-white ml-auto overflow-y-auto"> 
+          {loading && (
+            <div className="p-4 text-sm text-gray-500">Searching...</div>
+          )}
+
+          {!loading && books.length === 0 && search.length >= 2 && (
+            <div className="p-4 text-sm text-gray-500">
+              No books found
+            </div>
+          )}
+          
+          {!loading && books.map((book) => (
+          <SearchCard key={book.id} book={book} />
         ))}
         </div>
       )}
